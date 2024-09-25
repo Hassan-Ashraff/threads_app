@@ -1,0 +1,70 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.google.gms:google-services:4.4.2' // Google Services plugin
+    }
+}
+
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin" // Flutter Gradle plugin
+}
+
+android {
+    namespace = "com.example.threads" // Your package name
+    compileSdk = flutter.compileSdkVersion // Inherits from Flutter
+    ndkVersion = flutter.ndkVersion // Inherits from Flutter
+
+    defaultConfig {
+        applicationId = "com.example.threads"
+        minSdkVersion 23
+        targetSdk = flutter.targetSdkVersion // Inherits from Flutter
+        versionCode = flutter.versionCode // Inherits from Flutter
+        versionName = flutter.versionName // Inherits from Flutter
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug // Use debug signing for now
+            minifyEnabled true // Enable code shrinking for release builds
+            shrinkResources true // Enable resource shrinking
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro' // Default ProGuard rules
+        }
+        debug {
+            minifyEnabled false // Disable code shrinking in debug mode
+            shrinkResources false // Disable resource shrinking in debug mode
+        }
+    }
+}
+
+flutter {
+    source = "../.." // Flutter source configuration, relative path
+}
+
+dependencies {
+    // Firebase dependencies using Firebase BOM for version management
+    implementation platform('com.google.firebase:firebase-bom:33.3.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
+
+    // AndroidX core library
+    implementation 'androidx.core:core-ktx:1.13.1'
+}
+
+apply plugin: 'com.google.gms.google-services' // Google Services plugin for Firebase
